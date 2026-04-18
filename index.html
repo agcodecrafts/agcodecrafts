@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AG CodeCrafts – Where Code Meets Growth</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --purple:#6C5CE7;
+  --purple-light:#F0EEFF;
+  --purple-mid:#A29BFE;
+  --purple-dark:#4834d4;
+  --purple-deep:#3d2eb0;
+  --teal:#00B894;
+  --teal-light:#E0F8F3;
+  --amber:#FDCB6E;
+  --coral:#FF7675;
+  --text:#1e1e2e;
+  --text-muted:#6b7280;
+  --bg:#FAFAFA;
+  --white:#ffffff;
+  --border:#e5e7eb;
+  --card-bg:#ffffff;
+  --font-display:'Playfair Display',serif;
+  --font-body:'DM Sans',sans-serif;
+  --shadow-sm:0 2px 8px rgba(108,92,231,0.08);
+  --shadow-md:0 8px 32px rgba(108,92,231,0.12);
+  --shadow-lg:0 16px 48px rgba(108,92,231,0.18);
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--purple-mid);border-radius:3px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:70px;
+  transition:box-shadow 0.3s;
+}
+nav.scrolled{box-shadow:var(--shadow-md);}
+.nav-logo{
+  font-family:var(--font-display);font-size:1.45rem;font-weight:800;
+  color:var(--purple);text-decoration:none;display:flex;align-items:center;gap:8px;
+}
+.nav-logo-icon{
+  width:36px;height:36px;background:var(--purple);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:900;color:white;font-family:var(--font-display);
+}
+.nav-logo span{color:var(--text);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+.nav-links a{
+  text-decoration:none;color:var(--text-muted);font-size:0.88rem;font-weight:500;
+  transition:color 0.2s;position:relative;padding-bottom:2px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
+  background:var(--purple);border-radius:2px;transition:width 0.3s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--purple);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{
+  background:var(--purple);color:white;padding:10px 24px;border-radius:10px;
+  font-size:0.88rem;font-weight:600;text-decoration:none;
+  transition:all 0.2s;border:none;cursor:pointer;font-family:var(--font-body);
+  display:flex;align-items:center;gap:6px;
+}
+.nav-cta:hover{background:var(--purple-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(108,92,231,0.35);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:0.3s;}
+
+/* ── PAGES ── */
+.page{display:none;padding-top:70px;min-height:100vh;}
+.page.active{display:block;animation:fadeUp 0.45s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── COMMON SECTION ── */
+.section{padding:80px 5%;}
+.section-label{
+  font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.section-label::before{content:'';width:24px;height:2px;background:var(--purple);border-radius:2px;}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:800;
+  color:var(--text);line-height:1.15;margin-bottom:1rem;
+}
+.section-title span{color:var(--purple);}
+.section-sub{color:var(--text-muted);font-size:1.02rem;line-height:1.8;max-width:600px;}
+.divider{width:48px;height:4px;background:linear-gradient(90deg,var(--purple),var(--purple-mid));border-radius:4px;margin:14px 0 40px;}
+
+/* ── HERO ── */
+.hero{
+  min-height:calc(100vh - 70px);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;
+  padding:80px 5% 60px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(108,92,231,0.07) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-100px;left:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(0,184,148,0.05) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--purple-light);color:var(--purple);
+  font-size:0.8rem;font-weight:600;padding:7px 16px;border-radius:999px;
+  margin-bottom:1.5rem;border:1px solid rgba(108,92,231,0.2);
+}
+.hero-badge-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--purple);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.8);}}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:900;
+  line-height:1.08;margin-bottom:1.2rem;color:var(--text);
+}
+.hero-title em{color:var(--purple);font-style:normal;}
+.hero-desc{color:var(--text-muted);font-size:1.08rem;line-height:1.85;margin-bottom:2rem;max-width:500px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--purple);color:white;padding:13px 30px;border-radius:12px;
+  font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.25s;
+  display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:var(--font-body);
+}
+.btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,92,231,0.35);}
+.btn-outline{
+  background:white;color:var(--purple);border:2px solid var(--purple);
+  padding:13px 30px;border-radius:12px;font-weight:600;font-size:0.95rem;
+  text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-outline:hover{background:var(--purple-light);transform:translateY(-2px);}
+.btn-whatsapp{
+  background:#25D366;color:white;padding:11px 22px;border-radius:10px;
+  font-weight:600;font-size:0.88rem;text-decoration:none;transition:all 0.2s;
+  display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:var(--font-body);
+}
+.btn-whatsapp:hover{background:#1fba58;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,211,102,0.4);}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;flex-wrap:wrap;}
+.stat-num{font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--purple);}
+.stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:2px;font-weight:500;}
+
+/* hero visual */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;}
+.hero-card-stack{position:relative;width:340px;height:400px;}
+.hcard{
+  position:absolute;background:white;border-radius:20px;
+  box-shadow:var(--shadow-md);padding:24px;border:1px solid var(--border);
+  transition:transform 0.3s;
+}
+.hcard:hover{transform:translateY(-4px) !important;}
+.hcard-1{width:270px;top:0;left:35px;transform:rotate(-4deg);}
+.hcard-2{width:290px;top:90px;left:10px;transform:rotate(1.5deg);z-index:2;}
+.hcard-3{width:250px;top:215px;left:55px;transform:rotate(2.5deg);z-index:1;}
+.hcard-icon{font-size:2.2rem;margin-bottom:12px;}
+.hcard-title{font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:4px;}
+.hcard-desc{font-size:0.82rem;color:var(--text-muted);}
+.hcard-tag{
+  display:inline-block;background:var(--purple-light);color:var(--purple);
+  font-size:0.74rem;font-weight:700;padding:4px 12px;border-radius:6px;margin-top:10px;
+}
+.hcard-tag.green{background:var(--teal-light);color:var(--teal);}
+.hcard-tag.amber{background:#FEF3C7;color:#D97706;}
+
+/* ── FEATURES STRIP ── */
+.features-strip{
+  background:linear-gradient(135deg,var(--purple) 0%,var(--purple-dark) 100%);
+  padding:52px 5%;
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:2rem;text-align:center;
+}
+.feature-item{color:white;transition:transform 0.2s;}
+.feature-item:hover{transform:translateY(-4px);}
+.feature-icon{
+  font-size:2rem;margin-bottom:10px;
+  width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 12px;
+}
+.feature-name{font-weight:600;font-size:0.88rem;opacity:0.95;}
+
+/* ── CARDS GRID ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.card{
+  background:var(--card-bg);border:1px solid var(--border);border-radius:18px;
+  padding:28px;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--purple),var(--purple-mid));
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
+}
+.card:hover{border-color:var(--purple-mid);box-shadow:var(--shadow-md);transform:translateY(-4px);}
+.card:hover::before{transform:scaleX(1);}
+.card-icon{
+  width:52px;height:52px;background:var(--purple-light);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:18px;
+}
+.card-title{font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--text);}
+.card-desc{font-size:0.87rem;color:var(--text-muted);line-height:1.7;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-visual{
+  background:linear-gradient(135deg,var(--purple-light) 0%,white 60%);
+  border-radius:28px;padding:48px 36px;border:1px solid rgba(108,92,231,0.15);
+  display:flex;flex-direction:column;gap:20px;
+  box-shadow:var(--shadow-sm);
+}
+.about-stat-row{display:flex;gap:16px;}
+.about-stat-box{
+  flex:1;background:white;border-radius:16px;padding:22px 16px;
+  border:1px solid var(--border);text-align:center;transition:transform 0.2s;
+}
+.about-stat-box:hover{transform:translateY(-3px);}
+.about-stat-num{font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--purple);}
+.about-stat-label{font-size:0.78rem;color:var(--text-muted);margin-top:4px;font-weight:500;}
+.about-mission{
+  background:linear-gradient(135deg,var(--purple) 0%,var(--purple-dark) 100%);
+  border-radius:16px;padding:22px;color:white;font-style:italic;font-size:0.92rem;line-height:1.75;
+}
+.values-list{display:flex;flex-direction:column;gap:18px;margin-top:0.5rem;}
+.value-item{display:flex;gap:14px;align-items:flex-start;}
+.value-icon{
+  width:40px;height:40px;border-radius:12px;background:var(--purple-light);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+}
+.value-title{font-weight:700;font-size:0.92rem;margin-bottom:3px;}
+.value-desc{font-size:0.84rem;color:var(--text-muted);line-height:1.6;}
+
+/* ── SERVICES ── */
+.domain-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;}
+.chip{
+  background:white;border:2px solid var(--border);border-radius:999px;
+  padding:9px 22px;font-size:0.87rem;font-weight:600;color:var(--text);
+  transition:all 0.2s;cursor:default;
+}
+.chip:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-light);}
+
+/* ── PROJECTS MARKETPLACE ── */
+.projects-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap;gap:1rem;}
+.project-count{
+  background:var(--purple-light);color:var(--purple);padding:6px 16px;
+  border-radius:999px;font-size:0.82rem;font-weight:700;
+}
+.portfolio-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.filter-btn{
+  background:white;border:1.5px solid var(--border);border-radius:999px;
+  padding:8px 20px;font-size:0.84rem;font-weight:600;cursor:pointer;
+  transition:all 0.2s;color:var(--text-muted);font-family:var(--font-body);
+}
+.filter-btn.active,.filter-btn:hover{background:var(--purple);color:white;border-color:var(--purple);}
+
+/* sub-category filter */
+.subfilter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;padding:12px 16px;background:var(--purple-light);border-radius:14px;}
+.sub-btn{
+  background:white;border:1.5px solid rgba(108,92,231,0.2);border-radius:999px;
+  padding:6px 16px;font-size:0.8rem;font-weight:600;cursor:pointer;
+  transition:all 0.2s;color:var(--purple);font-family:var(--font-body);
+}
+.sub-btn.active,.sub-btn:hover{background:var(--purple);color:white;border-color:var(--purple);}
+
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:24px;}
+.pcard{
+  background:white;border:1px solid var(--border);border-radius:20px;
+  overflow:hidden;transition:all 0.3s;display:flex;flex-direction:column;
+}
+.pcard:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px);border-color:var(--purple-mid);}
+.pcard.hidden{display:none;}
+.pcard-thumb{
+  height:150px;display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;position:relative;overflow:hidden;
+}
+.pcard-thumb::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30px;
+  background:linear-gradient(transparent,rgba(255,255,255,0.8));
+}
+.pcard-body{padding:20px;display:flex;flex-direction:column;flex:1;}
+.pcard-cat{
+  font-size:0.72rem;font-weight:700;color:var(--purple);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;
+}
+.pcard-title{font-weight:700;font-size:0.96rem;color:var(--text);margin-bottom:7px;line-height:1.35;}
+.pcard-desc{font-size:0.83rem;color:var(--text-muted);line-height:1.6;flex:1;margin-bottom:14px;}
+.pcard-features{
+  display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;
+}
+.pcard-feat-tag{
+  background:var(--purple-light);color:var(--purple);
+  font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:6px;
+}
+.pcard-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.pcard-price{
+  font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--text);
+}
+.pcard-price span{font-size:0.85rem;font-weight:500;color:var(--text-muted);}
+
+/* thumb colors */
+.pcard[data-cat="web"] .pcard-thumb{background:linear-gradient(135deg,#EEF2FF,#E0E7FF);}
+.pcard[data-cat="app"] .pcard-thumb{background:linear-gradient(135deg,#FDF4FF,#FAE8FF);}
+.pcard[data-cat="iot"] .pcard-thumb{background:linear-gradient(135deg,#E0F8F3,#D1FAE5);}
+.pcard[data-cat="security"] .pcard-thumb{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);}
+.pcard[data-cat="science"] .pcard-thumb{background:linear-gradient(135deg,#FEF3C7,#FDE68A);}
+.pcard[data-cat="robotics"] .pcard-thumb{background:linear-gradient(135deg,#FCE7F3,#FBCFE8);}
+.pcard[data-cat="school"] .pcard-thumb{background:linear-gradient(135deg,#E0F2FE,#BAE6FD);}
+
+/* ── TEAM ── */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;}
+.team-card{
+  background:white;border:1px solid var(--border);border-radius:24px;
+  overflow:hidden;transition:all 0.3s;
+}
+.team-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px);}
+.team-card-header{
+  background:linear-gradient(135deg,var(--purple-light) 0%,rgba(162,155,254,0.2) 100%);
+  padding:36px 28px 28px;text-align:center;position:relative;overflow:hidden;
+}
+.team-card-header::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;background:rgba(108,92,231,0.08);border-radius:50%;
+}
+.team-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:white;
+  margin:0 auto 16px;border:4px solid white;box-shadow:var(--shadow-md);
+}
+.team-name{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--text);}
+.team-role{font-size:0.85rem;color:var(--purple);font-weight:600;margin-top:4px;}
+.team-card-body{padding:24px 28px 30px;}
+.team-contact{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.team-contact-item{
+  display:flex;gap:10px;align-items:center;font-size:0.84rem;color:var(--text-muted);
+}
+.team-contact-icon{
+  width:30px;height:30px;border-radius:9px;background:var(--purple-light);
+  display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;
+}
+.skills-row{display:flex;flex-wrap:wrap;gap:7px;}
+.skill-tag{
+  background:var(--teal-light);color:var(--teal);font-size:0.76rem;
+  font-weight:700;padding:5px 13px;border-radius:999px;
+}
+.team-links{display:flex;gap:10px;margin-top:16px;}
+.team-link{
+  display:flex;align-items:center;gap:6px;
+  background:var(--purple-light);color:var(--purple);
+  font-size:0.8rem;font-weight:600;padding:7px 14px;border-radius:8px;
+  text-decoration:none;transition:all 0.2s;flex:1;justify-content:center;
+}
+.team-link:hover{background:var(--purple);color:white;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
+.contact-info{display:flex;flex-direction:column;gap:16px;}
+.contact-card{
+  background:white;border:1px solid var(--border);border-radius:16px;padding:20px;
+  display:flex;gap:14px;align-items:flex-start;transition:all 0.2s;
+}
+.contact-card:hover{border-color:var(--purple-mid);box-shadow:var(--shadow-sm);}
+.contact-card-icon{
+  width:46px;height:46px;background:var(--purple-light);border-radius:13px;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;
+}
+.contact-card-label{font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;font-weight:500;}
+.contact-card-value{font-weight:700;font-size:0.95rem;color:var(--text);}
+.contact-card-value a{color:inherit;text-decoration:none;}
+.contact-card-value a:hover{color:var(--purple);}
+.contact-form{background:white;border:1px solid var(--border);border-radius:24px;padding:40px;}
+.form-group{margin-bottom:18px;}
+.form-label{font-size:0.84rem;font-weight:600;color:var(--text);margin-bottom:8px;display:block;}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:12px 16px;border:2px solid var(--border);
+  border-radius:12px;font-size:0.9rem;font-family:var(--font-body);
+  color:var(--text);background:var(--bg);transition:all 0.2s;outline:none;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{
+  border-color:var(--purple);background:white;box-shadow:0 0 0 3px rgba(108,92,231,0.1);
+}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-submit{
+  width:100%;background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  color:white;border:none;padding:14px;border-radius:12px;
+  font-size:0.95rem;font-weight:700;cursor:pointer;font-family:var(--font-body);
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.form-submit:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(108,92,231,0.4);}
+.whatsapp-direct{
+  background:#25D366;color:white;border:none;padding:14px;border-radius:12px;
+  font-size:0.95rem;font-weight:700;cursor:pointer;font-family:var(--font-body);
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;margin-top:12px;
+}
+.whatsapp-direct:hover{background:#1fba58;transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--text);color:rgba(255,255,255,0.65);
+  padding:56px 5% 28px;margin-top:0;
+}
+.footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2.5rem;margin-bottom:40px;}
+.footer-brand p{font-size:0.85rem;margin-top:12px;max-width:250px;line-height:1.75;}
+.footer-links h4{color:white;font-size:0.9rem;font-weight:700;margin-bottom:16px;}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{
+  color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.85rem;
+  transition:color 0.2s;cursor:pointer;
+}
+.footer-links a:hover{color:var(--purple-mid);}
+.footer-social{display:flex;gap:10px;margin-top:16px;}
+.social-icon{
+  width:36px;height:36px;background:rgba(255,255,255,0.1);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+  transition:all 0.2s;text-decoration:none;cursor:pointer;
+}
+.social-icon:hover{background:var(--purple);transform:translateY(-2px);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.footer-bottom p{font-size:0.82rem;}
+.footer-tagline{
+  color:var(--purple-mid);font-style:italic;font-size:0.82rem;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  color:white;padding:16px 24px;border-radius:14px;font-size:0.9rem;font-weight:600;
+  transform:translateY(80px);opacity:0;transition:all 0.4s;z-index:9999;
+  box-shadow:0 8px 24px rgba(108,92,231,0.4);display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── SECTION INTRO ── */
+.section-intro-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:2rem;flex-wrap:wrap;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:40px 5%;}
+  .hero-visual{display:none;}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .nav-links.open{
+    display:flex;flex-direction:column;position:fixed;
+    top:70px;left:0;right:0;background:white;
+    padding:20px 5% 28px;border-bottom:1px solid var(--border);
+    gap:1.2rem;box-shadow:var(--shadow-md);z-index:999;
+  }
+  .nav-links.open .nav-cta-mobile{
+    display:block;background:var(--purple);color:white;padding:12px 24px;
+    border-radius:10px;text-align:center;font-weight:600;font-size:0.9rem;
+    text-decoration:none;
+  }
+  .form-row{grid-template-columns:1fr;}
+  .footer-top{flex-direction:column;}
+  .footer-bottom{flex-direction:column;}
+  .section{padding:60px 5%;}
+  .hero-stats{gap:1.5rem;}
+}
+@media(max-width:480px){
+  .portfolio-grid{grid-template-columns:1fr;}
+  .cards-grid{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  .about-stat-row{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#" onclick="return showPage('home')">
+    <div class="nav-logo-icon">AG</div>
+    <span>Code<b style="color:var(--purple)">Crafts</b></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="return showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="return showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="return showPage('services')" id="nav-services">Services</a></li>
+    <li><a href="#" onclick="return showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a href="#" onclick="return showPage('team')" id="nav-team">Team</a></li>
+    <li><a href="#" onclick="return showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="return showPage('projects')">🛒 Browse Projects</button>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Student-Driven Initiative — Puducherry</div>
+      <h1 class="hero-title">Build Smart<br>Projects.<br><em>Stand Out.</em></h1>
+      <p class="hero-desc">From school science exhibitions to final year college projects — AG CodeCrafts provides ready-made and custom solutions to help you learn, present, and succeed with confidence.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('projects')">🚀 Explore Projects</button>
+        <button class="btn-outline" onclick="showPage('contact')">✉️ Request Custom</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">50+</div><div class="stat-label">Projects Delivered</div></div>
+        <div><div class="stat-num">6</div><div class="stat-label">Domains Covered</div></div>
+        <div><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+        <div><div class="stat-num">24h</div><div class="stat-label">Response Time</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hcard hcard-1">
+          <div class="hcard-icon">🌐</div>
+          <div class="hcard-title">Web Development</div>
+          <div class="hcard-desc">Full-stack projects with docs</div>
+          <span class="hcard-tag">From ₹799</span>
+        </div>
+        <div class="hcard hcard-2">
+          <div class="hcard-icon">🔒</div>
+          <div class="hcard-title">Cybersecurity</div>
+          <div class="hcard-desc">Penetration testing projects</div>
+          <span class="hcard-tag green">Custom Build</span>
+        </div>
+        <div class="hcard hcard-3">
+          <div class="hcard-icon">🤖</div>
+          <div class="hcard-title">Robotics & IoT</div>
+          <div class="hcard-desc">Hardware + Software combo</div>
+          <span class="hcard-tag amber">With PPT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="features-strip">
+    <div class="features-grid">
+      <div class="feature-item"><div class="feature-icon">📘</div><div class="feature-name">Ready-made Projects</div></div>
+      <div class="feature-item"><div class="feature-icon">🛠️</div><div class="feature-name">Custom Development</div></div>
+      <div class="feature-item"><div class="feature-icon">💻</div><div class="feature-name">Source Code + Docs</div></div>
+      <div class="feature-item"><div class="feature-icon">📊</div><div class="feature-name">PPT Support</div></div>
+      <div class="feature-item"><div class="feature-icon">💬</div><div class="feature-name">WhatsApp Ordering</div></div>
+      <div class="feature-item"><div class="feature-icon">🧠</div><div class="feature-name">End-to-End Guidance</div></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-label">Why Students Choose Us</div>
+    <div class="section-title">Everything You Need to <span>Succeed</span></div>
+    <div class="divider"></div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">💰</div><div class="card-title">Student-Friendly Pricing</div><div class="card-desc">Premium quality projects at prices every student can afford. School projects starting from ₹199, college projects from ₹799.</div></div>
+      <div class="card"><div class="card-icon">⚡</div><div class="card-title">Fast Delivery</div><div class="card-desc">Get your project delivered quickly with our ready-made solutions and expert team support at every step.</div></div>
+      <div class="card"><div class="card-icon">🎨</div><div class="card-title">Fully Customizable</div><div class="card-desc">Every project is tailored to your specific needs — from beginner to advanced level academic requirements.</div></div>
+      <div class="card"><div class="card-icon">🎓</div><div class="card-title">Beginner Friendly</div><div class="card-desc">No prior experience needed. Clear documentation and explanations so you actually understand what you present.</div></div>
+      <div class="card"><div class="card-icon">📱</div><div class="card-title">Instant WhatsApp Support</div><div class="card-desc">Direct connection via WhatsApp — no complex forms or payment gateways. Simple, fast, student-first experience.</div></div>
+      <div class="card"><div class="card-icon">🏆</div><div class="card-title">Multi-Domain Expertise</div><div class="card-desc">From science exhibitions to final year IT projects — we cover Science, Web Dev, Cybersecurity, IoT, Robotics & more.</div></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--purple-light);border-radius:24px;margin:0 5%;padding:60px 5%;">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <div class="section-label" style="justify-content:center;">Get Started Today</div>
+      <div class="section-title" style="text-align:center;">Have a Unique Idea or Need a <span>Custom Project?</span></div>
+      <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2rem;">Tell us your requirements and we'll build it for you. From school science exhibitions to college final year projects — we've got you covered.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="showPage('projects')">🛒 Browse Projects</button>
+        <a class="btn-whatsapp" href="https://wa.me/918940940853?text=Hi%20AG%20CodeCrafts!%20I%20need%20a%20custom%20project.%20My%20Name:%20" target="_blank">💬 Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+  <div style="height:80px;"></div>
+</div>
+
+<!-- ════════════════ ABOUT PAGE ════════════════ -->
+<div id="page-about" class="page">
+  <section class="section">
+    <div class="section-label">Who We Are</div>
+    <div class="section-title">About <span>AG CodeCrafts</span></div>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:1.02rem;margin-bottom:0.8rem;">AG CodeCrafts is a <strong style="color:var(--text)">student-driven initiative</strong> based in Puducherry, dedicated to simplifying academic project development. We help students build high-quality projects with ease by offering ready-made and fully customizable solutions across multiple domains.</p>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:1.02rem;margin-bottom:2rem;">We specialize in providing projects across Science exhibitions, working models, web development, app development, cybersecurity, IoT, and robotics. Our goal is not just to deliver projects — we ensure every student understands what they present. <em>Simplicity, clarity, and practical implementation</em> — that's our promise.</p>
+        <div class="values-list">
+          <div class="value-item">
+            <div class="value-icon">🎯</div>
+            <div><div class="value-title">Our Mission</div><div class="value-desc">Make project development simple, accessible, and stress-free for every student by providing reliable resources, expert guidance, and innovative ideas.</div></div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🚀</div>
+            <div><div class="value-title">Our Vision</div><div class="value-desc">Become a trusted platform where students can easily access high-quality academic resources and build innovative, impactful projects.</div></div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">💡</div>
+            <div><div class="value-title">Innovation First</div><div class="value-desc">We constantly explore new domains and technologies to keep students ahead of the curve — from AI to blockchain to robotics.</div></div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🤝</div>
+            <div><div class="value-title">Student-First Support</div><div class="value-desc">Expert guidance from idea to final submission — we're with you every step of the way, available on WhatsApp anytime.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-stat-row">
+          <div class="about-stat-box"><div class="about-stat-num">50+</div><div class="about-stat-label">Projects Delivered</div></div>
+          <div class="about-stat-box"><div class="about-stat-num">6</div><div class="about-stat-label">Domains Covered</div></div>
+        </div>
+        <div class="about-stat-row">
+          <div class="about-stat-box"><div class="about-stat-num">2</div><div class="about-stat-label">Expert Founders</div></div>
+          <div class="about-stat-box"><div class="about-stat-num">100%</div><div class="about-stat-label">Customizable</div></div>
+        </div>
+        <div class="about-mission">"Our mission is to make project development simple, accessible, and stress-free for students by providing reliable resources, expert guidance, and innovative ideas. Where Code Meets Growth."</div>
+        <div style="background:white;border-radius:14px;padding:18px;border:1px solid var(--border);">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Domains We Cover</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">🔬 Science</span>
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">🌐 Web Dev</span>
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">🔒 Cybersecurity</span>
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">📡 IoT</span>
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">🤖 Robotics</span>
+            <span style="background:var(--purple-light);color:var(--purple);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:6px;">📱 App Dev</span>
+          </div>
+        </div>
+        <a class="btn-whatsapp" href="https://wa.me/918940940853?text=Hi%20AG%20CodeCrafts!%20I%20want%20to%20learn%20more%20about%20your%20services." target="_blank" style="text-align:center;justify-content:center;">💬 Chat With Us on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--purple);padding:60px 5%;margin:0;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:3rem;text-align:center;">
+      <div style="color:white;"><div style="font-family:var(--font-display);font-size:3rem;font-weight:900;">50+</div><div style="opacity:0.8;margin-top:6px;">Projects Delivered</div></div>
+      <div style="color:white;"><div style="font-family:var(--font-display);font-size:3rem;font-weight:900;">6</div><div style="opacity:0.8;margin-top:6px;">Tech Domains</div></div>
+      <div style="color:white;"><div style="font-family:var(--font-display);font-size:3rem;font-weight:900;">100%</div><div style="opacity:0.8;margin-top:6px;">Satisfaction Rate</div></div>
+      <div style="color:white;"><div style="font-family:var(--font-display);font-size:3rem;font-weight:900;">24h</div><div style="opacity:0.8;margin-top:6px;">Response Time</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ SERVICES PAGE ════════════════ -->
+<div id="page-services" class="page">
+  <section class="section">
+    <div class="section-label">What We Offer</div>
+    <div class="section-title">Our <span>Services</span></div>
+    <div class="divider"></div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">📘</div><div class="card-title">Ready-made Projects</div><div class="card-desc">High-quality academic projects available immediately. Perfect for tight deadlines. Complete with source code, documentation, and explanation.</div></div>
+      <div class="card"><div class="card-icon">🛠️</div><div class="card-title">Custom Development</div><div class="card-desc">Fully tailored project development built around your exact requirements and academic guidelines. Tell us your idea, we'll build it.</div></div>
+      <div class="card"><div class="card-icon">💻</div><div class="card-title">Source Code + Docs</div><div class="card-desc">Complete, well-commented source code delivered with thorough documentation — ready to present, explain, and understand.</div></div>
+      <div class="card"><div class="card-icon">📊</div><div class="card-title">PPT & Presentation</div><div class="card-desc">Professional presentation slides and viva preparation support for your project defense or science exhibition.</div></div>
+      <div class="card"><div class="card-icon">🧠</div><div class="card-title">End-to-End Guidance</div><div class="card-desc">From initial concept to final submission — expert mentoring throughout your entire project journey.</div></div>
+      <div class="card"><div class="card-icon">💬</div><div class="card-title">WhatsApp Support</div><div class="card-desc">Direct, instant communication via WhatsApp. Get answers fast. Custom project requests handled with priority.</div></div>
+      <div class="card"><div class="card-icon">🎓</div><div class="card-title">Beginner to Advanced</div><div class="card-desc">Projects designed for all skill levels — from 6th grade science exhibitions to final year B.Tech projects.</div></div>
+      <div class="card"><div class="card-icon">🔧</div><div class="card-title">Technical Support</div><div class="card-desc">Dedicated support for debugging, code explanation, and helping you truly understand your project.</div></div>
+    </div>
+
+    <div style="margin-top:72px;">
+      <div class="section-label">Domains We Cover</div>
+      <div class="section-title">Our <span>Expertise</span></div>
+      <div class="divider"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+        <div class="card" style="border-left:4px solid var(--purple);">
+          <div class="card-icon" style="background:#EEF2FF;">🔬</div>
+          <div class="card-title">Science Projects</div>
+          <div class="card-desc">Science exhibitions, working models, charts. For school students from 6th to 12th. Eco-friendly, practical, and visually impressive projects.</div>
+        </div>
+        <div class="card" style="border-left:4px solid #3B82F6;">
+          <div class="card-icon" style="background:#EFF6FF;">🌐</div>
+          <div class="card-title">Web Development</div>
+          <div class="card-desc">Full-stack websites, portals, platforms. HTML/CSS/JS to Flask & MongoDB. Perfect for diploma and UG final year submissions.</div>
+        </div>
+        <div class="card" style="border-left:4px solid #8B5CF6;">
+          <div class="card-icon" style="background:#F5F3FF;">📱</div>
+          <div class="card-title">App Development</div>
+          <div class="card-desc">Mobile and web applications with modern UI. From simple tools to complex platforms with authentication and dashboards.</div>
+        </div>
+        <div class="card" style="border-left:4px solid #F59E0B;">
+          <div class="card-icon" style="background:#FFFBEB;">🔒</div>
+          <div class="card-title">Cybersecurity</div>
+          <div class="card-desc">Network security tools, intrusion detection, ethical hacking projects. Real-world security concepts for your academic presentation.</div>
+        </div>
+        <div class="card" style="border-left:4px solid #10B981;">
+          <div class="card-icon" style="background:#ECFDF5;">📡</div>
+          <div class="card-title">IoT Projects</div>
+          <div class="card-desc">Smart home, smart farming, health monitoring. Arduino & Raspberry Pi based projects with sensor integration and real-time data.</div>
+        </div>
+        <div class="card" style="border-left:4px solid #EC4899;">
+          <div class="card-icon" style="background:#FDF2F8;">🤖</div>
+          <div class="card-title">Robotics</div>
+          <div class="card-desc">Line following, obstacle avoiding, gesture control robots. Hardware + software integration projects with complete build guidance.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:60px;background:var(--purple-light);border-radius:24px;padding:48px;text-align:center;">
+      <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:1rem;">Ready to Get Your Project?</div>
+      <p style="color:var(--text-muted);max-width:500px;margin:0 auto 2rem;line-height:1.8;">Browse our project marketplace or tell us your custom requirements. We'll respond within 24 hours!</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="showPage('projects')">🛒 Browse All Projects</button>
+        <a class="btn-whatsapp" href="https://wa.me/918940940853?text=Hi%20AG%20CodeCrafts!%20I%20need%20help%20with%20a%20project.%20My%20Name:%20" target="_blank">💬 WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ PROJECTS PAGE ════════════════ -->
+<div id="page-projects" class="page">
+  <section class="section">
+    <div class="section-intro-row">
+      <div>
+        <div class="section-label">Academic Project Marketplace</div>
+        <div class="section-title">Browse <span>Projects</span></div>
+        <div class="divider" style="margin-bottom:0;"></div>
+      </div>
+      <div>
+        <span class="project-count" id="projectCount">Loading...</span>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+    <!-- Main Category Filter -->
+    <div class="portfolio-filter" id="mainFilter">
+      <button class="filter-btn active" onclick="filterMain('all',this)">🌟 All Projects</button>
+      <button class="filter-btn" onclick="filterMain('school',this)">🏫 School Projects</button>
+      <button class="filter-btn" onclick="filterMain('web',this)">🌐 Web Development</button>
+      <button class="filter-btn" onclick="filterMain('app',this)">📱 App Development</button>
+      <button class="filter-btn" onclick="filterMain('security',this)">🔒 Cybersecurity</button>
+      <button class="filter-btn" onclick="filterMain('iot',this)">📡 IoT</button>
+      <button class="filter-btn" onclick="filterMain('robotics',this)">🤖 Robotics</button>
+    </div>
+
+    <!-- Sub-category filter (school) -->
+    <div class="subfilter" id="schoolSubfilter" style="display:none;">
+      <button class="sub-btn active" onclick="filterSub('school-all',this)">All School</button>
+      <button class="sub-btn" onclick="filterSub('science',this)">🔬 Science Exhibition</button>
+      <button class="sub-btn" onclick="filterSub('model',this)">⚙️ Working Models</button>
+      <button class="sub-btn" onclick="filterSub('chart',this)">📋 Charts</button>
+    </div>
+    </div>
+
+    <div class="portfolio-grid" id="projectGrid">
+      <!-- Projects are rendered by JS below -->
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ TEAM PAGE ════════════════ -->
+<div id="page-team" class="page">
+  <section class="section">
+    <div class="section-label">The People Behind AG CodeCrafts</div>
+    <div class="section-title">Meet Our <span>Team</span></div>
+    <div class="divider"></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar">G</div>
+          <div class="team-name">Gopinath G</div>
+          <div class="team-role">Founder — CapTech & AG CodeCrafts</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-contact">
+            <div class="team-contact-item"><div class="team-contact-icon">📞</div><span>+91 8940940853</span></div>
+            <div class="team-contact-item"><div class="team-contact-icon">✉️</div><span>smartstarprogrammers@gmail.com</span></div>
+            <div class="team-contact-item"><div class="team-contact-icon">🎓</div><span>B.Tech IT — Christ College of Engineering, Puducherry (2022–2026)</span></div>
+          </div>
+          <div class="skills-row">
+            <span class="skill-tag">Web Development</span>
+            <span class="skill-tag">Cybersecurity</span>
+            <span class="skill-tag">Digital Marketing</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">IoT</span>
+          </div>
+          <div class="team-links" style="margin-top:16px;">
+            <a class="team-link" href="https://www.linkedin.com/in/gopinath-g2004" target="_blank">🔗 LinkedIn</a>
+            <a class="team-link btn-whatsapp" style="flex:1;justify-content:center;" href="https://wa.me/918940940853?text=Hi%20Gopinath!%20I%20found%20you%20from%20AG%20CodeCrafts." target="_blank">💬 WhatsApp</a>
+          </div>
+          <div style="margin-top:16px;padding:14px;background:var(--purple-light);border-radius:12px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--purple);margin-bottom:8px;">CERTIFICATIONS</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
+              🏅 Master Program in Cybersecurity & Ethical Hacking — FITA Academy<br>
+              🏅 Networking Basics — Cisco<br>
+              🏅 Cloud Computing — NPTEL<br>
+              🏅 Digital Marketing — GUVI
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar">A</div>
+          <div class="team-name">Apssharaa Sri B</div>
+          <div class="team-role">Co-Founder — AG CodeCrafts</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-contact">
+            <div class="team-contact-item"><div class="team-contact-icon">📞</div><span>+91 9345564549</span></div>
+            <div class="team-contact-item"><div class="team-contact-icon">✉️</div><span>apssharaabalakrishnan1106@gmail.com</span></div>
+            <div class="team-contact-item"><div class="team-contact-icon">🎓</div><span>B.Tech IT — Christ College of Engineering, Puducherry (2022–2026)</span></div>
+          </div>
+          <div class="skills-row">
+            <span class="skill-tag">Web Development</span>
+            <span class="skill-tag">Cybersecurity</span>
+            <span class="skill-tag">Digital Marketing</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">UI Design</span>
+          </div>
+          <div class="team-links" style="margin-top:16px;">
+            <a class="team-link" href="https://www.linkedin.com/in/apssharaa-sri-234648286" target="_blank">🔗 LinkedIn</a>
+            <a class="team-link btn-whatsapp" style="flex:1;justify-content:center;" href="https://wa.me/919345564549?text=Hi%20Apssharaa!%20I%20found%20you%20from%20AG%20CodeCrafts." target="_blank">💬 WhatsApp</a>
+          </div>
+          <div style="margin-top:16px;padding:14px;background:var(--purple-light);border-radius:12px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--purple);margin-bottom:8px;">CERTIFICATIONS</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
+              🏅 Master Program in Cybersecurity & Ethical Hacking — FITA Academy<br>
+              🏅 Networking Basics — Cisco<br>
+              🏅 Cloud Computing — NPTEL<br>
+              🏅 Digital Marketing — GUVI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:60px;background:var(--purple-light);border-radius:24px;padding:48px;text-align:center;">
+      <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:0.8rem;">Want to work with us?</div>
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">Reach out to our founders directly for custom projects, collaborations, or inquiries.</p>
+      <a class="btn-whatsapp" href="https://wa.me/918940940853?text=Hi%20AG%20CodeCrafts!%20I%20want%20to%20discuss%20a%20project.%20My%20Name:%20" target="_blank" style="display:inline-flex;">💬 Chat with the Team</a>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ CONTACT PAGE ════════════════ -->
+<div id="page-contact" class="page">
+  <section class="section">
+    <div class="section-label">Get In Touch</div>
+    <div class="section-title">Contact <span>AG CodeCrafts</span></div>
+    <div class="divider"></div>
+
+    <p style="color:var(--text-muted);line-height:1.85;max-width:700px;margin-bottom:3rem;font-size:1.02rem;">AG CodeCrafts is a student-driven platform dedicated to helping school and college students build high-quality academic projects. Whether you're preparing for a science exhibition or working on your final year project — we're here to support you at every step. We usually respond within a short time on WhatsApp and social platforms.</p>
+
+    <div class="contact-grid">
+      <div>
+        <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:20px;color:var(--text);">Let's Build Your Project Together</div>
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-card-icon">📞</div>
+            <div>
+              <div class="contact-card-label">Phone / WhatsApp</div>
+              <div class="contact-card-value"><a href="tel:+918940940853">+91 8940940853</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">✉️</div>
+            <div>
+              <div class="contact-card-label">Email</div>
+              <div class="contact-card-value"><a href="mailto:agcodecrafts@gmail.com">agcodecrafts@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">📸</div>
+            <div>
+              <div class="contact-card-label">Instagram</div>
+              <div class="contact-card-value"><a href="https://instagram.com/agcodecrafts2026" target="_blank">@agcodecrafts2026</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">📬</div>
+            <div>
+              <div class="contact-card-label">Telegram</div>
+              <div class="contact-card-value"><a href="https://t.me/AG_codecrafts" target="_blank">AG_codecrafts</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">▶️</div>
+            <div>
+              <div class="contact-card-label">YouTube</div>
+              <div class="contact-card-value">AG CodeCrafts Lab</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">🕐</div>
+            <div>
+              <div class="contact-card-label">Response Time</div>
+              <div class="contact-card-value">Within 24 hours</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn-whatsapp" href="https://wa.me/918940940853?text=Hi%20AG%20CodeCrafts!%20I%20want%20to%20discuss%20a%20project.%20My%20Name:%20" target="_blank" style="display:flex;justify-content:center;margin-top:20px;">💬 Chat on WhatsApp Now — Instant Response!</a>
+      </div>
+
+      <div class="contact-form">
+        <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:24px;color:var(--text);">Send Us a Message</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Your Name *</label><input class="form-input" type="text" id="contactName" placeholder="Enter your name"/></div>
+          <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" id="contactPhone" placeholder="+91 XXXXX XXXXX"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" id="contactEmail" placeholder="your@email.com"/></div>
+        <div class="form-group">
+          <label class="form-label">Domain / Category *</label>
+          <select class="form-select" id="contactDomain">
+            <option value="">— Select a domain —</option>
+            <option>Science Exhibition (School)</option>
+            <option>Working Model (School)</option>
+            <option>Chart (School)</option>
+            <option>Web Development</option>
+            <option>App Development</option>
+            <option>Cybersecurity</option>
+            <option>IoT</option>
+            <option>Robotics</option>
+            <option>Other / Custom</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Project Details *</label><textarea class="form-textarea" id="contactMsg" placeholder="Describe your project requirements — topic, level (school/college), deadline, any specific features you need..."></textarea></div>
+        <button class="form-submit" onclick="handleContactSubmit()">🚀 Send Message</button>
+        <a id="contactWABtn" class="whatsapp-direct" href="#" onclick="openContactWhatsApp();return false;">💬 Or Send Directly via WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--purple-mid);">AG <span style="color:rgba(255,255,255,0.5)">CodeCrafts</span></div>
+      <p>Simplifying academic project development for students everywhere.<br><em style="color:var(--purple-mid);">— Where Code Meets Growth —</em></p>
+      <div class="footer-social">
+        <a class="social-icon" href="https://wa.me/918940940853" target="_blank" title="WhatsApp">💬</a>
+        <a class="social-icon" href="https://instagram.com/agcodecrafts2026" target="_blank" title="Instagram">📸</a>
+        <a class="social-icon" href="https://t.me/AG_codecrafts" target="_blank" title="Telegram">📬</a>
+        <a class="social-icon" href="#" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('about')">About</a></li>
+        <li><a onclick="showPage('services')">Services</a></li>
+        <li><a onclick="showPage('projects')">Projects</a></li>
+        <li><a onclick="showPage('team')">Team</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Services</h4>
+      <ul>
+        <li><a>Ready-made Projects</a></li>
+        <li><a>Custom Development</a></li>
+        <li><a>Source Code + Docs</a></li>
+        <li><a>PPT Support</a></li>
+        <li><a>End-to-End Guidance</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+918940940853">📞 +91 8940940853</a></li>
+        <li><a href="mailto:agcodecrafts@gmail.com">✉️ agcodecrafts@gmail.com</a></li>
+        <li><a href="https://instagram.com/agcodecrafts2026" target="_blank">📸 @agcodecrafts2026</a></li>
+        <li><a href="https://t.me/AG_codecrafts" target="_blank">📬 AG_codecrafts</a></li>
+        <li><a>▶️ AG CodeCrafts Lab</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 AG CodeCrafts. All rights reserved.</p>
+    <p class="footer-tagline">Made with ❤️ for students — Where Code Meets Growth</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><span>✅</span><span id="toastMsg">Message sent! We'll get back to you soon.</span></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// PROJECT DATA — Full marketplace listing
+// ═══════════════════════════════════════════════
+const PROJECTS = [
+  // ── SCHOOL: SCIENCE EXHIBITION ──
+  {cat:'school',sub:'science',icon:'💧',title:'Smart Irrigation System',desc:'Automated irrigation using soil moisture sensors to water plants based on actual needs, saving water.',features:['Sensor Integration','Eco-friendly','School Exhibition Ready'],price:299},
+  {cat:'school',sub:'science',icon:'☀️',title:'Solar Powered Car',desc:'Miniature car powered entirely by solar energy. Demonstrates renewable energy in a fun, visual way.',features:['Solar Panel','Working Model','Eco Concept'],price:399},
+  {cat:'school',sub:'science',icon:'💡',title:'Automatic Street Light',desc:'Smart street light using LDR sensor — turns on at night, off during day. Saves electricity concept.',features:['LDR Sensor','Circuit Included','Demo Ready'],price:249},
+  {cat:'school',sub:'science',icon:'🌊',title:'Water Level Indicator',desc:'Monitors water level in a tank and alerts when it is full or empty using LED/buzzer indicators.',features:['LED Indicator','Buzzer Alert','Easy Build'],price:249},
+  {cat:'school',sub:'science',icon:'🌬️',title:'Wind Energy Generator',desc:'Miniature windmill model that generates electricity demonstrating wind as a renewable energy source.',features:['LED Output','Renewable Energy','Exhibition Ready'],price:349},
+  {cat:'school',sub:'science',icon:'🗑️',title:'Smart Dustbin',desc:'Automatic lid-opening dustbin using ultrasonic sensor — promotes hygiene and innovation concept.',features:['Ultrasonic Sensor','Auto Lid','Clean Concept'],price:299},
+  {cat:'school',sub:'science',icon:'🌡️',title:'Air Pollution Detector',desc:'Detects air quality using MQ sensors and displays pollution level — awareness project for exhibitions.',features:['MQ Sensor','LCD Display','Awareness Project'],price:349},
+  {cat:'school',sub:'science',icon:'🚨',title:'Earthquake Alarm System',desc:'Vibration sensor triggers alarm when earthquake-like motion detected. Great for science exhibitions.',features:['Vibration Sensor','Alarm Output','Safety Concept'],price:299},
+  {cat:'school',sub:'science',icon:'🔥',title:'Fire Alarm System',desc:'Temperature/flame sensor triggers alarm for fire detection. Essential safety project for exhibitions.',features:['Flame Sensor','Buzzer Alarm','Safety Project'],price:279},
+  {cat:'school',sub:'science',icon:'🌞',title:'Solar Water Heater',desc:'Model demonstrating solar thermal energy to heat water — explains renewable energy concepts clearly.',features:['Solar Thermal','Working Model','Eco Concept'],price:349},
+  {cat:'school',sub:'science',icon:'🚗',title:'Smart Traffic Control',desc:'Arduino-based traffic light system with timing and pedestrian signals. Urban planning concept.',features:['Arduino','LED Signals','Timed Control'],price:349},
+  {cat:'school',sub:'science',icon:'🤚',title:'Automatic Hand Sanitizer',desc:'Touchless sanitizer dispenser using IR sensor. Perfect for post-pandemic awareness exhibitions.',features:['IR Sensor','Touchless','Hygiene Concept'],price:299},
+  {cat:'school',sub:'science',icon:'🚌',title:'Smart Bus Stop System',desc:'LED display-based bus arrival indicator with button control. Smart city concept for exhibitions.',features:['LED Display','Smart City','Concept Model'],price:379},
+  {cat:'school',sub:'science',icon:'☀️',title:'Solar Tracking Panel',desc:'Solar panel that automatically rotates to follow the sun for maximum energy generation.',features:['Servo Motor','LDR Sensor','Max Efficiency'],price:449},
+  {cat:'school',sub:'science',icon:'💧',title:'Water Purification System',desc:'Model showing multi-stage water purification with filtration layers for clean water demonstration.',features:['Multi-stage Filter','Visual Demo','Clean Water'],price:299},
+
+  // ── SCHOOL: WORKING MODELS ──
+  {cat:'school',sub:'model',icon:'🌉',title:'Hydraulic Bridge Model',desc:'Working bridge that uses hydraulic pressure (water/syringe) to lift and lower. Very visual and impressive.',features:['Hydraulic System','Working Mechanism','No Electronics'],price:349},
+  {cat:'school',sub:'model',icon:'🏗️',title:'Motorized Crane',desc:'Electric motor-driven crane model showing pulley and mechanical advantage. Great for physics projects.',features:['Motor Driven','Pulley System','Physics Concept'],price:379},
+  {cat:'school',sub:'model',icon:'🛗',title:'Working Elevator Model',desc:'Miniature elevator with motor and pulley system demonstrating vertical transportation mechanics.',features:['Motor + Pulley','Realistic Demo','Engineering Concept'],price:349},
+  {cat:'school',sub:'model',icon:'🌬️',title:'Working Windmill',desc:'Windmill model with blades that spin to generate small electric current, lighting an LED.',features:['LED Output','Blade System','Renewable Energy'],price:279},
+  {cat:'school',sub:'model',icon:'🤖',title:'Line Following Robot',desc:'Robot that follows a black line using IR sensors. Great working model for exhibitions and presentations.',features:['IR Sensors','Arduino','Autonomous'],price:499},
+  {cat:'school',sub:'model',icon:'🚗',title:'Bluetooth Controlled Car',desc:'Remote-controlled car via Bluetooth and smartphone app. Fun and impressive demonstration model.',features:['Bluetooth','App Control','Wireless'],price:549},
+  {cat:'school',sub:'model',icon:'🚰',title:'Automatic Water Dispenser',desc:'Touchless water dispensing system using IR proximity sensor — clean, hygienic demonstration.',features:['IR Sensor','Touchless','Pump System'],price:329},
+  {cat:'school',sub:'model',icon:'🔊',title:'Voice Controlled Light',desc:'Turns lights on/off using voice commands. Demonstrates speech recognition concept practically.',features:['Voice Module','Smart Control','Demo Ready'],price:399},
+  {cat:'school',sub:'model',icon:'⚙️',title:'Gear Mechanism Model',desc:'Demonstrates different types of gears — spur, bevel, worm — and their mechanical applications.',features:['3 Gear Types','Hands-on Demo','Physics Concept'],price:249},
+  {cat:'school',sub:'model',icon:'💧',title:'Hydraulic Lift',desc:'Syringe-based hydraulic lift demonstrating Pascal\'s law of pressure transmission beautifully.',features:['Pascals Law','Syringe System','Physics Demo'],price:249},
+
+  // ── SCHOOL: CHARTS ──
+  {cat:'school',sub:'chart',icon:'🫀',title:'Human Heart Diagram',desc:'Detailed labeled chart of the human heart showing chambers, valves, and blood flow pathways.',features:['Fully Labeled','Colorful','Biology Class'],price:149},
+  {cat:'school',sub:'chart',icon:'🌍',title:'Layers of Earth Chart',desc:'Cross-section chart showing crust, mantle, outer core, and inner core with detailed labeling.',features:['Cross Section','Colorful','Geography'],price:149},
+  {cat:'school',sub:'chart',icon:'🌊',title:'Water Cycle Chart',desc:'Complete water cycle showing evaporation, condensation, precipitation with arrows and labels.',features:['Complete Cycle','Labeled','Science Class'],price:149},
+  {cat:'school',sub:'chart',icon:'🌞',title:'Solar System Chart',desc:'Scale representation of all planets with facts, sizes, and distances from the sun.',features:['All Planets','Facts Included','Space Science'],price:149},
+  {cat:'school',sub:'chart',icon:'⚛️',title:'Structure of Atom Chart',desc:'Detailed atomic model showing protons, neutrons, electrons with Bohr model and labels.',features:['Bohr Model','Chemistry Class','Fully Labeled'],price:149},
+  {cat:'school',sub:'chart',icon:'🌿',title:'Photosynthesis Chart',desc:'Step-by-step photosynthesis process chart with light reactions and Calvin cycle explained visually.',features:['Process Diagram','Biology','Fully Explained'],price:149},
+  {cat:'school',sub:'chart',icon:'🧬',title:'Human Nervous System',desc:'Complete diagram of central and peripheral nervous system with brain regions labeled.',features:['Brain + Nerves','Biology Class','Detailed Labels'],price:149},
+
+  // ── WEB DEVELOPMENT ──
+  {cat:'web',sub:'',icon:'🛍️',title:'E-Commerce Platform',desc:'Full-stack online store with product catalog, cart, order management, and admin panel.',features:['Full Stack','Admin Panel','Source Code'],price:1499},
+  {cat:'web',sub:'',icon:'🎓',title:'E-Learning Platform',desc:'Web-based learning platform with course modules, user authentication, progress tracking, and certificates.',features:['Login System','Course Modules','Certificates'],price:1499},
+  {cat:'web',sub:'',icon:'💼',title:'Job Portal Website',desc:'Complete job listing platform where employers post jobs and candidates apply. Full database integration.',features:['Dual User Roles','Database','Search Filter'],price:1799},
+  {cat:'web',sub:'',icon:'🏫',title:'Student Management System',desc:'College management portal with attendance tracking, marks entry, timetable, and admin dashboard.',features:['Attendance','Marks','Timetable'],price:1299},
+  {cat:'web',sub:'',icon:'📝',title:'Blogging CMS Platform',desc:'Full-featured blog with post creation, categories, comments, and SEO-ready structure.',features:['CMS',  'SEO Ready','Comments'],price:1199},
+  {cat:'web',sub:'',icon:'🗳️',title:'Online Voting System',desc:'Secure digital voting platform with voter authentication, real-time results, and audit logs.',features:['Secure Auth','Real-time Results','Audit Log'],price:1499},
+  {cat:'web',sub:'',icon:'💬',title:'Real-time Chat Application',desc:'WebSocket-based real-time chat with rooms, private messaging, and online status indicators.',features:['Real-time','Chat Rooms','Private Chat'],price:1599},
+  {cat:'web',sub:'',icon:'🏨',title:'Hotel Booking System',desc:'Hotel reservation website with room browsing, availability calendar, booking management.',features:['Booking System','Availability','Admin Panel'],price:1699},
+  {cat:'web',sub:'',icon:'🎉',title:'Event Management System',desc:'Create, manage, and register for events. Includes ticket system, attendee management, and notifications.',features:['Ticketing','Registration','Notifications'],price:1499},
+  {cat:'web',sub:'',icon:'🏋️',title:'Gym Management System',desc:'Fitness center management with member registration, attendance, payment tracking, and trainer assignment.',features:['Member Management','Attendance','Payments'],price:1399},
+  {cat:'web',sub:'',icon:'📚',title:'Online Quiz System',desc:'Create and take quizzes with timer, multiple choice, scoring, and result analysis.',features:['Timer','Auto Scoring','Result Analysis'],price:999},
+  {cat:'web',sub:'',icon:'🌐',title:'Online Auction System',desc:'Real-time bidding platform with countdown timers, highest bid tracking, and seller dashboard.',features:['Real-time Bid','Timer','Seller Dashboard'],price:1799},
+  {cat:'web',sub:'',icon:'📋',title:'Online Appointment System',desc:'Book and manage appointments with calendar view, email reminders, and admin scheduling.',features:['Calendar','Email Alerts','Admin Panel'],price:1299},
+  {cat:'web',sub:'',icon:'🏥',title:'Blood Donation Platform',desc:'Platform connecting blood donors and recipients with location-based search and emergency requests.',features:['Donor Search','Location Based','Emergency Alerts'],price:1399},
+  {cat:'web',sub:'',icon:'⚡',title:'URL Shortener Tool',desc:'Custom URL shortening service with click tracking, analytics dashboard, and custom aliases.',features:['Click Analytics','Custom Alias','Dashboard'],price:799},
+
+  // ── APP DEVELOPMENT ──
+  {cat:'app',sub:'',icon:'🍔',title:'Food Delivery App',desc:'Mobile-first food ordering app with restaurant listings, cart, order tracking, and delivery management.',features:['Restaurant Listing','Order Tracking','Cart System'],price:1799},
+  {cat:'app',sub:'',icon:'💰',title:'Expense Tracker App',desc:'Personal finance tracker with income/expense logging, category breakdown, and visual charts.',features:['Visual Charts','Categories','Monthly Reports'],price:999},
+  {cat:'app',sub:'',icon:'💪',title:'Fitness Tracker App',desc:'Health and fitness tracking with workout logs, calorie counter, BMI calculator, and progress charts.',features:['Workout Log','Calorie Counter','BMI Calculator'],price:1199},
+  {cat:'app',sub:'',icon:'📚',title:'Quiz App',desc:'Mobile quiz application with multiple categories, difficulty levels, timer, and leaderboard.',features:['Multiple Categories','Timer','Leaderboard'],price:899},
+  {cat:'app',sub:'',icon:'🧘',title:'Meditation App',desc:'Guided meditation app with timer, breathing exercises, mood tracking, and calming UI.',features:['Guided Sessions','Breathing Exercises','Mood Tracker'],price:1099},
+  {cat:'app',sub:'',icon:'🔑',title:'Password Manager App',desc:'Secure local password vault with master key authentication, encrypted storage, and password generator.',features:['Encryption','Master Key','Password Generator'],price:1299},
+  {cat:'app',sub:'',icon:'🗺️',title:'Travel Planner App',desc:'Trip planning app with itinerary builder, packing list, budget tracker, and destination info.',features:['Itinerary Builder','Budget Tracker','Packing List'],price:1199},
+  {cat:'app',sub:'',icon:'🛒',title:'Grocery App',desc:'Smart grocery shopping app with list management, price comparison, and budget tracking.',features:['Shopping List','Price Tracker','Budget Control'],price:999},
+  {cat:'app',sub:'',icon:'📅',title:'Study Planner App',desc:'Academic schedule and study session planner with goal tracking, reminders, and subject management.',features:['Study Schedule','Goal Tracking','Reminders'],price:899},
+  {cat:'app',sub:'',icon:'🩸',title:'Blood Donation App',desc:'Mobile app connecting donors with recipients for emergency blood requests with location filtering.',features:['Emergency Alerts','Location Filter','Donor Registry'],price:1299},
+  {cat:'app',sub:'',icon:'🚌',title:'Bus Tracking App',desc:'Real-time bus location tracking and arrival estimation for college/city bus routes.',features:['Real-time Tracking','Route Info','ETA Display'],price:1499},
+  {cat:'app',sub:'',icon:'⏰',title:'Habit Tracker App',desc:'Build and track daily habits with streak counters, progress visualization, and motivational alerts.',features:['Streak Counter','Visual Progress','Daily Reminders'],price:899},
+
+  // ── CYBERSECURITY ──
+  {cat:'security',sub:'',icon:'🔍',title:'Network Intrusion Detection System',desc:'ML-based system that monitors network traffic patterns and detects suspicious activity in real-time.',features:['AI-based Detection','Real-time Monitoring','Report Generation'],price:1999},
+  {cat:'security',sub:'',icon:'🎣',title:'Phishing Detection Tool',desc:'Python tool that analyzes URLs and email content to identify phishing attempts using heuristic rules.',features:['URL Analysis','Email Scanning','Python Based'],price:1499},
+  {cat:'security',sub:'',icon:'🔐',title:'Password Strength Analyzer',desc:'Analyzes password strength and provides suggestions with entropy calculation and breach checking.',features:['Strength Meter','Entropy Calc','Suggestions'],price:799},
+  {cat:'security',sub:'',icon:'🗝️',title:'OTP Authentication System',desc:'Two-factor authentication implementation with time-based OTPs, QR code setup, and backup codes.',features:['TOTP','QR Setup','2FA'],price:1299},
+  {cat:'security',sub:'',icon:'👤',title:'Face Recognition Login',desc:'Biometric authentication system using face recognition — login with your face instead of passwords.',features:['Face Recognition','OpenCV','Biometric'],price:1799},
+  {cat:'security',sub:'',icon:'🔒',title:'Data Encryption Tool',desc:'File and text encryption/decryption using AES-256 — demonstrates cryptography fundamentals practically.',features:['AES-256','File Encryption','Key Management'],price:1199},
+  {cat:'security',sub:'',icon:'📡',title:'Network Scanner Tool',desc:'Network discovery and port scanning tool using Python — find active hosts and open ports.',features:['Port Scanning','Host Discovery','Python'],price:1099},
+  {cat:'security',sub:'',icon:'🛡️',title:'Vulnerability Scanner',desc:'Automated web vulnerability scanner checking for SQL injection, XSS, and common OWASP issues.',features:['SQLi Detection','XSS Scanning','OWASP Based'],price:1999},
+  {cat:'security',sub:'',icon:'⛓️',title:'Blockchain Voting System',desc:'Tamper-proof voting system using blockchain technology ensuring transparency and immutability.',features:['Blockchain','Tamper-proof','Transparent'],price:2499},
+  {cat:'security',sub:'',icon:'📧',title:'Email Spam Filter',desc:'Machine learning spam classifier that categorizes emails as spam/ham with NLP text analysis.',features:['ML Classifier','NLP','Spam Detection'],price:1499},
+  {cat:'security',sub:'',icon:'📦',title:'Packet Sniffer',desc:'Network packet capture and analysis tool for educational purposes — Wireshark-like functionality.',features:['Packet Capture','Protocol Analysis','Educational'],price:1299},
+  {cat:'security',sub:'',icon:'🕵️',title:'Digital Forensics Tool',desc:'Basic digital forensics toolkit for file recovery, metadata analysis, and hash verification.',features:['File Recovery','Metadata Analysis','Hash Check'],price:1799},
+  {cat:'security',sub:'',icon:'💳',title:'Fraud Detection System',desc:'ML-based transaction fraud detection with anomaly scoring and real-time alert generation.',features:['Anomaly Detection','ML Model','Real-time Alerts'],price:1999},
+  {cat:'security',sub:'',icon:'🔑',title:'Password Leak Checker',desc:'Checks if passwords/emails appear in known data breach databases using Have I Been Pwned API.',features:['HIBP API','Breach Check','Privacy Safe'],price:999},
+
+  // ── IoT ──
+  {cat:'iot',sub:'',icon:'🏠',title:'Smart Home Automation',desc:'Arduino/Raspberry Pi based home automation controlling lights, fans, and appliances via mobile app.',features:['Mobile App','Arduino','Remote Control'],price:1999},
+  {cat:'iot',sub:'',icon:'🌱',title:'Smart Irrigation IoT',desc:'Soil moisture sensor-based automated plant watering system with real-time monitoring dashboard.',features:['Soil Sensor','Auto Watering','Dashboard'],price:1799},
+  {cat:'iot',sub:'',icon:'🌡️',title:'IoT Weather Station',desc:'Raspberry Pi weather station measuring temperature, humidity, pressure with live web dashboard.',features:['Multi-Sensor','Live Dashboard','Data Logging'],price:1899},
+  {cat:'iot',sub:'',icon:'💓',title:'Smart Health Monitor',desc:'IoT-based health monitoring system tracking heart rate, SpO2, and temperature with alerts.',features:['Health Sensors','Alert System','Live Monitoring'],price:2199},
+  {cat:'iot',sub:'',icon:'⚡',title:'Smart Energy Meter',desc:'Real-time electricity consumption monitoring with cost calculation and usage analytics dashboard.',features:['Power Monitoring','Cost Calculator','Analytics'],price:1799},
+  {cat:'iot',sub:'',icon:'🗑️',title:'Smart Waste Management',desc:'IoT dustbin with fill-level sensor that notifies when full — perfect for smart city concept.',features:['Fill Sensor','Auto Notification','Smart City'],price:1499},
+  {cat:'iot',sub:'',icon:'🌾',title:'Smart Farming System',desc:'Complete IoT farming solution with soil, temperature, humidity monitoring and automated irrigation.',features:['Multi-Sensor','Auto Irrigation','Remote Monitor'],price:2299},
+  {cat:'iot',sub:'',icon:'💧',title:'Smart Water Quality Monitor',desc:'Monitors pH, turbidity, and temperature of water using IoT sensors with live data display.',features:['pH Sensor','Turbidity','Live Data'],price:1999},
+  {cat:'iot',sub:'',icon:'🔒',title:'Smart Door Lock IoT',desc:'RFID/fingerprint based smart door lock with access logs, mobile notification, and remote unlock.',features:['RFID','Access Log','Mobile Alert'],price:1899},
+  {cat:'iot',sub:'',icon:'🔥',title:'IoT Fire Detection System',desc:'Multi-sensor fire detection with smoke, flame, and temperature sensors — triggers alarm and notification.',features:['Multi-Sensor','Auto Alarm','SMS Alert'],price:1699},
+  {cat:'iot',sub:'',icon:'💨',title:'IoT Air Quality Monitor',desc:'Measures PM2.5, CO2, CO levels and displays AQI on dashboard with historical data charts.',features:['PM2.5 Sensor','AQI Display','History Charts'],price:1999},
+  {cat:'iot',sub:'',icon:'🐾',title:'IoT Pet Feeder',desc:'Automated pet feeding system with scheduled feeding, portion control, and remote control via app.',features:['Scheduled Feeding','App Control','Portion Control'],price:1599},
+  {cat:'iot',sub:'',icon:'🚗',title:'IoT Bike Tracking',desc:'GPS-based bike tracking system with real-time location on map, speed monitoring, and theft alerts.',features:['GPS Tracking','Real-time Map','Theft Alert'],price:1999},
+  {cat:'iot',sub:'',icon:'🏭',title:'Smart Warehouse System',desc:'IoT-enabled inventory management with RFID tracking, stock alerts, and automated record-keeping.',features:['RFID Tracking','Stock Alerts','Auto Records'],price:2299},
+
+  // ── ROBOTICS ──
+  {cat:'robotics',sub:'',icon:'➡️',title:'Line Following Robot',desc:'Autonomous robot using IR sensors to follow a black line — classic robotics project with smooth control.',features:['IR Sensors','Arduino','Autonomous Control'],price:999},
+  {cat:'robotics',sub:'',icon:'🚧',title:'Obstacle Avoiding Robot',desc:'Ultrasonic sensor-based robot that detects and autonomously avoids obstacles in its path.',features:['Ultrasonic Sensor','Auto Navigation','Motor Control'],price:1099},
+  {cat:'robotics',sub:'',icon:'🔥',title:'Fire Fighting Robot',desc:'Robot that detects fire using flame sensors and extinguishes it using a water pump mechanism.',features:['Flame Sensor','Water Pump','Autonomous'],price:1499},
+  {cat:'robotics',sub:'',icon:'📱',title:'Bluetooth Controlled Robot',desc:'Smartphone-controlled robot car via Bluetooth with speed control and direction buttons in app.',features:['Bluetooth','App Control','Speed Adjust'],price:1199},
+  {cat:'robotics',sub:'',icon:'🤚',title:'Gesture Control Robot',desc:'Control a robot using hand gestures detected by accelerometer/MPU6050 — impressive and innovative.',features:['MPU6050','Gesture Control','Wireless'],price:1499},
+  {cat:'robotics',sub:'',icon:'🎤',title:'Voice Control Robot',desc:'Robot controlled by voice commands using speech recognition module — futuristic and impressive project.',features:['Voice Module','Speech Recognition','Wireless'],price:1399},
+  {cat:'robotics',sub:'',icon:'🦾',title:'Robotic Arm',desc:'Servo-driven multi-DOF robotic arm with joystick and app control for pick and place operations.',features:['Multi-DOF','Servo Driven','Joystick Control'],price:1899},
+  {cat:'robotics',sub:'',icon:'👁️',title:'Surveillance Robot',desc:'WiFi-controlled robot with live camera feed for remote monitoring — like a mini security bot.',features:['WiFi Camera','Live Feed','Remote Control'],price:1999},
+  {cat:'robotics',sub:'',icon:'🏃',title:'Human Following Robot',desc:'Robot that detects and follows a person using IR or camera-based tracking — impressive demo.',features:['Person Tracking','IR Sensors','Auto Follow'],price:1799},
+  {cat:'robotics',sub:'',icon:'🤖',title:'AI Chat Robot',desc:'Raspberry Pi-based robot with voice interaction, ChatGPT-like responses, and animated face display.',features:['AI Powered','Voice Chat','Face Display'],price:2499},
+  {cat:'robotics',sub:'',icon:'🚜',title:'Agricultural Robot',desc:'Autonomous farming robot for seed planting, soil monitoring, and basic crop management automation.',features:['Autonomous','Soil Sensor','Farming Use'],price:2299},
+  {cat:'robotics',sub:'',icon:'🏭',title:'Industrial Robot Arm',desc:'Programmable industrial-style robotic arm for automated sorting, assembly, and repetitive tasks.',features:['Programmable','Multi-axis','Industrial Use'],price:2499},
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let currentMain = 'all';
+let currentSub = 'all';
+
+// ═══════════════════════════════════════════════
+// RENDER PROJECTS
+// ═══════════════════════════════════════════════
+function renderProjects(filtered) {
+  const grid = document.getElementById('projectGrid');
+  const countEl = document.getElementById('projectCount');
+  grid.innerHTML = '';
+  countEl.textContent = filtered.length + ' Projects Available';
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:3rem;margin-bottom:16px;">🔍</div><div style="font-size:1.1rem;font-weight:600;">No projects found</div></div>';
+    return;
+  }
+
+  filtered.forEach(p => {
+    const waMsg = encodeURIComponent('Hi AG CodeCrafts! I want to buy this project:\nProject: ' + p.title + '\nPrice: ₹' + p.price + '\nMy Name: ');
+    const waLink = 'https://wa.me/918940940853?text=' + waMsg;
+    const tags = p.features.map(f => '<span class="pcard-feat-tag">' + f + '</span>').join('');
+    const html = `
+      <div class="pcard" data-cat="${p.cat}" data-sub="${p.sub||''}">
+        <div class="pcard-thumb">${p.icon}</div>
+        <div class="pcard-body">
+          <div class="pcard-cat">${getCatLabel(p.cat)}</div>
+          <div class="pcard-title">${p.title}</div>
+          <div class="pcard-desc">${p.desc}</div>
+          <div class="pcard-features">${tags}</div>
+          <div class="pcard-footer">
+            <div class="pcard-price">₹${p.price} <span>/project</span></div>
+            <a class="btn-whatsapp" href="${waLink}" target="_blank" style="font-size:0.8rem;padding:9px 16px;">💬 Order Now</a>
+          </div>
+        </div>
+      </div>`;
+    grid.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+function getCatLabel(cat) {
+  const map = {web:'Web Development',app:'App Development',security:'Cybersecurity',iot:'IoT',robotics:'Robotics',school:'School Project'};
+  return map[cat] || cat;
+}
+
+function filterMain(cat, btn) {
+  currentMain = cat;
+  currentSub = (cat === 'school') ? 'school-all' : 'all';
+  document.querySelectorAll('#mainFilter .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const schoolSub = document.getElementById('schoolSubfilter');
+  if (cat === 'school') {
+    schoolSub.style.display = 'flex';
+    document.querySelectorAll('#schoolSubfilter .sub-btn').forEach((b,i) => { if(i===0) b.classList.add('active'); else b.classList.remove('active'); });
+  } else {
+    schoolSub.style.display = 'none';
+  }
+  applyFilter();
+}
+
+function filterSub(sub, btn) {
+  currentSub = sub;
+  document.querySelectorAll('#schoolSubfilter .sub-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter();
+}
+
+function applyFilter() {
+  let filtered = PROJECTS;
+  if (currentMain !== 'all') {
+    filtered = filtered.filter(p => p.cat === currentMain);
+  }
+  if (currentSub && currentSub !== 'all' && currentSub !== 'school-all') {
+    filtered = filtered.filter(p => p.sub === currentSub);
+  }
+  renderProjects(filtered);
+}
+
+// ═══════════════════════════════════════════════
+// PAGE NAVIGATION
+// ═══════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (id === 'projects') { applyFilter(); }
+  return false;
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════
+// CONTACT FUNCTIONS
+// ═══════════════════════════════════════════════
+function handleContactSubmit() {
+  const name = document.getElementById('contactName').value.trim();
+  if (!name) { showToast('Please enter your name! 😊'); return; }
+  showToast('Message received! We\'ll reach you soon. 🎉');
+  setTimeout(() => openContactWhatsApp(), 1000);
+}
+
+function openContactWhatsApp() {
+  const name = document.getElementById('contactName').value.trim() || 'Student';
+  const domain = document.getElementById('contactDomain').value || 'Not specified';
+  const msg = document.getElementById('contactMsg').value.trim() || 'I need help with a project.';
+  const phone = document.getElementById('contactPhone').value.trim();
+  const text = 'Hi AG CodeCrafts! I have a project inquiry.\n\nName: ' + name + '\nDomain: ' + domain + (phone ? '\nPhone: ' + phone : '') + '\n\nDetails: ' + msg;
+  window.open('https://wa.me/918940940853?text=' + encodeURIComponent(text), '_blank');
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ═══════════════════════════════════════════════
+// NAV SCROLL EFFECT
+// ═══════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Init
+renderProjects(PROJECTS);
+</script>
+</body>
+</html>
